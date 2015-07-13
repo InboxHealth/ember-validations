@@ -1,11 +1,9 @@
 import Ember from 'ember';
+import DS from 'ember-data';
 
-var get = Ember.get;
-var set = Ember.set;
-
-export default Ember.Object.extend({
+export default DS.Errors.extend({
   unknownProperty: function(property) {
-    set(this, property, Ember.A());
-    return get(this, property);
+    this.set(property, Ember.makeArray());
+    return this.get(property);
   }
 });
