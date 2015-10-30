@@ -95,7 +95,13 @@ export default Ember.Mixin.create(setValidityMixin, {
         var errors = Ember.A();
         this.validators.forEach(function(validator) {
           if (validator.property === sender.property) {
-            errors.addObjects(validator.errors);
+            if(validator.errors.length > 0) {
+              validator.errors.forEach(function(error){
+                errors.addObject({attribute: sender.property, message: error});
+              });
+            } else {
+              errors.addObjects(validator.errors);
+            }
           }
         }, this);
         set(this, 'errors.' + sender.property, errors);
